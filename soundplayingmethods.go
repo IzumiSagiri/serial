@@ -1,4 +1,4 @@
-package serialportmethods
+package serial
 
 /*
 #cgo LDFLAGS: -lwinmm

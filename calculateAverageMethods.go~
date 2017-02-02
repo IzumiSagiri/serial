@@ -1,0 +1,112 @@
+package serial
+
+func (status Status, scrl, scrr SCR, asahikaseil, asahikaseir Asahikasei) CalculateAverage() {
+	switch status.TagCounter {
+	default:
+	case 0:
+	case 1:
+		scrl.SCRCalm += int(scrl.SCR)
+		scrr.SCRCalm += int(scrr.SCR)
+		asahikaseil.SCLSum07 += asahikaseil.SCL
+		asahikaseil.SCLCounterSum07++
+		asahikaseil.SCLSum01 += asahikaseil.SCL
+		asahikaseil.SCLCounterSum01++
+		asahikaseir.SCLSum07 += asahikaseir.SCL
+		asahikaseir.SCLCounterSum07++
+		asahikaseir.SCLSum01 += asahikaseir.SCL
+		asahikaseir.SCLCounterSum01++
+	case 2:
+		scrl.SCRCalm += int(scrl.SCR)
+		scrr.SCRCalm += int(scrr.SCR)
+		asahikaseil.SCLSum07 += asahikaseil.SCL
+		asahikaseil.SCLCounterSum07++
+		asahikaseil.SCLSum12 += asahikaseil.SCL
+		asahikaseil.SCLCounterSum12++
+		asahikaseir.SCLSum07 += asahikaseir.SCL
+		asahikaseir.SCLCounterSum07++
+		asahikaseir.SCLSum12 += asahikaseir.SCL
+		asahikaseir.SCLCounterSum12++
+	case 3:
+		scrl.SCRCalm += int(scrl.SCR)
+		scrr.SCRCalm += int(scrr.SCR)
+		asahikaseil.SCLSum07 += asahikaseil.SCL
+		asahikaseil.SCLCounterSum07++
+		asahikaseil.SCLSum23 += asahikaseil.SCL
+		asahikaseil.SCLCounterSum23++
+		asahikaseil.SCLSum27 += asahikaseil.SCL
+		asahikaseil.SCLCounterSum27++
+		asahikaseir.SCLSum07 += asahikaseir.SCL
+		asahikaseir.SCLCounterSum07++
+		asahikaseir.SCLSum23 += asahikaseir.SCL
+		asahikaseir.SCLCounterSum23++
+		asahikaseir.SCLSum27 += asahikaseir.SCL
+		asahikaseir.SCLCounterSum27++
+	case 4:
+		scrl.SCRCalm += int(scrl.SCR)
+		scrr.SCRCalm += int(scrr.SCR)
+		asahikaseil.SCLSum07 += asahikaseil.SCL
+		asahikaseil.SCLCounterSum07++
+		asahikaseil.SCLSum34 += asahikaseil.SCL
+		asahikaseil.SCLCounterSum34++
+		asahikaseil.SCLSum27 += asahikaseil.SCL
+		asahikaseil.SCLCounterSum27++
+		asahikaseir.SCLSum07 += asahikaseir.SCL
+		asahikaseir.SCLCounterSum07++
+		asahikaseir.SCLSum34 += asahikaseir.SCL
+		asahikaseir.SCLCounterSum34++
+		asahikaseir.SCLSum27 += asahikaseir.SCL
+		asahikaseir.SCLCounterSum27++
+	case 5:
+		scrl.SCRCalm += int(scrl.SCR)
+		scrr.SCRCalm += int(scrr.SCR)
+		asahikaseil.SCLSum07 += asahikaseil.SCL
+		asahikaseil.SCLCounterSum07++
+		asahikaseil.SCLSum45 += asahikaseil.SCL
+		asahikaseil.SCLCounterSum45++
+		asahikaseil.SCLSum27 += asahikaseil.SCL
+		asahikaseil.SCLCounterSum27++
+		asahikaseir.SCLSum07 += asahikaseir.SCL
+		asahikaseir.SCLCounterSum07++
+		asahikaseir.SCLSum45 += asahikaseir.SCL
+		asahikaseir.SCLCounterSum45++
+		asahikaseir.SCLSum27 += asahikaseir.SCL
+		asahikaseir.SCLCounterSum27++
+	case 6:
+		scrl.SCRCalm += int(scrl.SCR)
+		scrr.SCRCalm += int(scrr.SCR)
+		asahikaseil.SCLSum07 += asahikaseil.SCL
+		asahikaseil.SCLCounterSum07++
+		asahikaseil.SCLSum56 += asahikaseil.SCL
+		asahikaseil.SCLCounterSum56++
+		asahikaseil.SCLSum27 += asahikaseil.SCL
+		asahikaseil.SCLCounterSum27++
+		asahikaseir.SCLSum07 += asahikaseir.SCL
+		asahikaseir.SCLCounterSum07++
+		asahikaseir.SCLSum56 += asahikaseir.SCL
+		asahikaseir.SCLCounterSum56++
+		asahikaseir.SCLSum27 += asahikaseir.SCL
+		asahikaseir.SCLCounterSum27++
+	case 7:
+		scrl.SCRCalm += int(scrl.SCR)
+		scrr.SCRCalm += int(scrr.SCR)
+		asahikaseil.SCLSum07 += asahikaseil.SCL
+		asahikaseil.SCLCounterSum07++
+		asahikaseil.SCLSum67 += asahikaseil.SCL
+		asahikaseil.SCLCounterSum67++
+		asahikaseil.SCLSum27 += asahikaseil.SCL
+		asahikaseil.SCLCounterSum27++
+		asahikaseir.SCLSum07 += asahikaseir.SCL
+		asahikaseir.SCLCounterSum07++
+		asahikaseir.SCLSum67 += asahikaseir.SCL
+		asahikaseir.SCLCounterSum67++
+		asahikaseir.SCLSum27 += asahikaseir.SCL
+		asahikaseir.SCLCounterSum27++
+	case 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29:
+		scrl.SCRSound += int(scrl.SCR)
+		scrr.SCRSound += int(scrr.SCR)
+		asahikaseil.SCLSumSound += asahikaseil.SCL
+		asahikaseil.SCLCounterSumSound++
+		asahikaseir.SCLSumSound += asahikaseir.SCL
+		asahikaseir.SCLCounterSumSound++
+	}
+}

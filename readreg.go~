@@ -1,0 +1,65 @@
+package serial
+
+/*
+#cgo LDFLAGS: -ladvapi32
+#include <stdio.h>
+#include <windows.h>
+#pragma comment(lib, "advapi32.lib")
+
+uchar strSerialList[256][2][50];
+
+void readCommPorts()
+{
+    int i = 0;
+    char Name[50];
+    char szPortName[50];
+    LONG Status;
+    DWORD dwIndex = 0;
+    DWORD dwName;
+    DWORD dwSizeofPortName;
+    DWORD Type;
+    HKEY hKey;
+    LPCTSTR data_Set = "HARDWARE\\DEVICEMAP\\SERIALCOMM\\";
+    dwName = sizeof(Name);
+    dwSizeofPortName = sizeof(szPortName);
+    long ret0 = RegOpenKeyEx(HKEY_LOCAL_MACHINE, data_Set, 0, KEY_READ, &hKey);
+    if(ret0 == ERROR_SUCCESS)
+    {
+        do
+        {
+            Status = RegEnumValue(hKey, dwIndex++, Name, &dwName, NULL, &Type, szPortName, &dwSizeofPortName);
+            if(Status == ERROR_SUCCESS)
+            {
+                strcpy(strSerialList[i][0], Name);
+                strcpy(strSerialList[i][1], szPortName);
+                i++;
+            }
+            dwName = sizeof(Name);
+            dwSizeofPortName = sizeof(szPortName);
+        } while(Status == ERROR_SUCCESS);
+        RegCloseKey(hKey);
+    }
+}
+*/
+import "C"
+import "fmt"
+
+func GetAvailableComms(m map[string]string) {
+	C.readCommPorts()
+	for i := range C.strSerialList {
+		if C.strSerialList[i][1][0] != 0 {
+			m[ConvertToString(C.strSerialList[i][0])] = ConvertToString(C.strSerialList[i][1])
+		}
+	}
+	fmt.Println(m)
+}
+
+func ConvertToString(wtf [50]C.char) string {
+	var charray []byte
+	for i := range wtf {
+		if wtf[i] != 0 {
+			charray = append(charray, byte(wtf[i]))
+		}
+	}
+	return string(charray)
+}

@@ -11,6 +11,185 @@ import "testing"
 var allPortsName []string
 var allPortsArray []Port
 
+func TestCalculateAverage(t *testing.T) {
+    var status Status
+    var scrl, scrr SCR
+    var asahikaseil, asahikaseir Asahikasei
+    status.TagCounter = 1
+    scrl.SCR = 1
+    scrr.SCR = 2
+    asahikaseil.SCL = 3
+    asahikaseir.SCL = 4
+    CalculateAverage(status, scrl, scrr, asahikaseil, asahikaseir)
+    status.TagCounter = 2
+    scrl.SCR = 1
+    scrr.SCR = 2
+    asahikaseil.SCL = 3
+    asahikaseir.SCL = 4
+    CalculateAverage(status, scrl, scrr, asahikaseil, asahikaseir)
+    status.TagCounter = 3
+    scrl.SCR = 1
+    scrr.SCR = 2
+    asahikaseil.SCL = 3
+    asahikaseir.SCL = 4
+    CalculateAverage(status, scrl, scrr, asahikaseil, asahikaseir)
+    status.TagCounter = 4
+    scrl.SCR = 1
+    scrr.SCR = 2
+    asahikaseil.SCL = 3
+    asahikaseir.SCL = 4
+    CalculateAverage(status, scrl, scrr, asahikaseil, asahikaseir)
+    status.TagCounter = 5
+    scrl.SCR = 1
+    scrr.SCR = 2
+    asahikaseil.SCL = 3
+    asahikaseir.SCL = 4
+    CalculateAverage(status, scrl, scrr, asahikaseil, asahikaseir)
+    status.TagCounter = 6
+    scrl.SCR = 1
+    scrr.SCR = 2
+    asahikaseil.SCL = 3
+    asahikaseir.SCL = 4
+    CalculateAverage(status, scrl, scrr, asahikaseil, asahikaseir)
+    status.TagCounter = 7
+    scrl.SCR = 1
+    scrr.SCR = 2
+    asahikaseil.SCL = 3
+    asahikaseir.SCL = 4
+    CalculateAverage(status, scrl, scrr, asahikaseil, asahikaseir)
+    status.TagCounter = 8
+    scrl.SCR = 1
+    scrr.SCR = 2
+    asahikaseil.SCL = 3
+    asahikaseir.SCL = 4
+    CalculateAverage(status, scrl, scrr, asahikaseil, asahikaseir)
+    status.TagCounter = 9
+    scrl.SCR = 1
+    scrr.SCR = 2
+    asahikaseil.SCL = 3
+    asahikaseir.SCL = 4
+    CalculateAverage(status, scrl, scrr, asahikaseil, asahikaseir)
+    status.TagCounter = 10
+    scrl.SCR = 1
+    scrr.SCR = 2
+    asahikaseil.SCL = 3
+    asahikaseir.SCL = 4
+    CalculateAverage(status, scrl, scrr, asahikaseil, asahikaseir)
+    status.TagCounter = 11
+    scrl.SCR = 1
+    scrr.SCR = 2
+    asahikaseil.SCL = 3
+    asahikaseir.SCL = 4
+    CalculateAverage(status, scrl, scrr, asahikaseil, asahikaseir)
+    status.TagCounter = 12
+    scrl.SCR = 1
+    scrr.SCR = 2
+    asahikaseil.SCL = 3
+    asahikaseir.SCL = 4
+    CalculateAverage(status, scrl, scrr, asahikaseil, asahikaseir)
+    status.TagCounter = 13
+    scrl.SCR = 1
+    scrr.SCR = 2
+    asahikaseil.SCL = 3
+    asahikaseir.SCL = 4
+    CalculateAverage(status, scrl, scrr, asahikaseil, asahikaseir)
+    status.TagCounter = 14
+    scrl.SCR = 1
+    scrr.SCR = 2
+    asahikaseil.SCL = 3
+    asahikaseir.SCL = 4
+    CalculateAverage(status, scrl, scrr, asahikaseil, asahikaseir)
+    status.TagCounter = 15
+    scrl.SCR = 1
+    scrr.SCR = 2
+    asahikaseil.SCL = 3
+    asahikaseir.SCL = 4
+    CalculateAverage(status, scrl, scrr, asahikaseil, asahikaseir)
+    status.TagCounter = 16
+    scrl.SCR = 1
+    scrr.SCR = 2
+    asahikaseil.SCL = 3
+    asahikaseir.SCL = 4
+    CalculateAverage(status, scrl, scrr, asahikaseil, asahikaseir)
+    status.TagCounter = 17
+    scrl.SCR = 1
+    scrr.SCR = 2
+    asahikaseil.SCL = 3
+    asahikaseir.SCL = 4
+    CalculateAverage(status, scrl, scrr, asahikaseil, asahikaseir)
+    status.TagCounter = 18
+    scrl.SCR = 1
+    scrr.SCR = 2
+    asahikaseil.SCL = 3
+    asahikaseir.SCL = 4
+    CalculateAverage(status, scrl, scrr, asahikaseil, asahikaseir)
+    status.TagCounter = 19
+    scrl.SCR = 1
+    scrr.SCR = 2
+    asahikaseil.SCL = 3
+    asahikaseir.SCL = 4
+    CalculateAverage(status, scrl, scrr, asahikaseil, asahikaseir)
+    status.TagCounter = 20
+    scrl.SCR = 1
+    scrr.SCR = 2
+    asahikaseil.SCL = 3
+    asahikaseir.SCL = 4
+    CalculateAverage(status, scrl, scrr, asahikaseil, asahikaseir)
+    status.TagCounter = 21
+    scrl.SCR = 1
+    scrr.SCR = 2
+    asahikaseil.SCL = 3
+    asahikaseir.SCL = 4
+    CalculateAverage(status, scrl, scrr, asahikaseil, asahikaseir)
+    status.TagCounter = 22
+    scrl.SCR = 1
+    scrr.SCR = 2
+    asahikaseil.SCL = 3
+    asahikaseir.SCL = 4
+    CalculateAverage(status, scrl, scrr, asahikaseil, asahikaseir)
+    status.TagCounter = 23
+    scrl.SCR = 1
+    scrr.SCR = 2
+    asahikaseil.SCL = 3
+    asahikaseir.SCL = 4
+    CalculateAverage(status, scrl, scrr, asahikaseil, asahikaseir)
+    status.TagCounter = 24
+    scrl.SCR = 1
+    scrr.SCR = 2
+    asahikaseil.SCL = 3
+    asahikaseir.SCL = 4
+    CalculateAverage(status, scrl, scrr, asahikaseil, asahikaseir)
+    status.TagCounter = 25
+    scrl.SCR = 1
+    scrr.SCR = 2
+    asahikaseil.SCL = 3
+    asahikaseir.SCL = 4
+    CalculateAverage(status, scrl, scrr, asahikaseil, asahikaseir)
+    status.TagCounter = 26
+    scrl.SCR = 1
+    scrr.SCR = 2
+    asahikaseil.SCL = 3
+    asahikaseir.SCL = 4
+    CalculateAverage(status, scrl, scrr, asahikaseil, asahikaseir)
+    status.TagCounter = 27
+    scrl.SCR = 1
+    scrr.SCR = 2
+    asahikaseil.SCL = 3
+    asahikaseir.SCL = 4
+    CalculateAverage(status, scrl, scrr, asahikaseil, asahikaseir)
+    status.TagCounter = 28
+    scrl.SCR = 1
+    scrr.SCR = 2
+    asahikaseil.SCL = 3
+    asahikaseir.SCL = 4
+    CalculateAverage(status, scrl, scrr, asahikaseil, asahikaseir)
+    status.TagCounter = 29
+    scrl.SCR = 1
+    scrr.SCR = 2
+    asahikaseil.SCL = 3
+    asahikaseir.SCL = 4
+    CalculateAverage(status, scrl, scrr, asahikaseil, asahikaseir)
+    fmt.Println("SCRL Calm: " + scrl.SCRCalm + " SCRL Sound: " + scrl.SCRSound + "SCRR Calm: " + scrr.SCRCalm + " SCRR Sound: " + scrr.SCRSound + " SCLSum07: " + asahikaseil.SCLSum07 + " SCLSum27: " + asahikaseil.SCLSum27 +" SCLSum01: " + asahikaseil.SCLSum01 + " SCLSum12: " + asahikaseil.SCLSum12 +" SCLSum23: " + asahikaseil.SCLSum23 + " SCLSum34: " + asahikaseil.SCLSum34 +  " SCLSum45: " + asahikaseil.SCLSum45 + " SCLSum56: " + asahikaseil.SCLSum56 +" SCLSum67: " + asahikaseil.SCLSum67 + " SCLSumSum: " + asahikaseil.SCLSumSum +
 func TestMain(t *testing.T) {
 	allPortsName = GetAvailableComms()
 	for _, v := range allPortsName {

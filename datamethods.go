@@ -1,4 +1,4 @@
-package serialportmethods
+package serial
 
 import "fmt"
 import "sync"
@@ -8,10 +8,11 @@ type SCR struct {
 	SCR byte
 	SCRCalm,
 	SCRSound int
-	Port    Port
-	Mux     sync.Mutex
-	Cond    sync.Cond
-	Changed bool
+	Port Port
+	Mux  sync.Mutex
+	Cond sync.Cond
+	Changed,
+	Accessable bool
 }
 
 type Asahikasei struct {
@@ -46,51 +47,56 @@ type Asahikasei struct {
 	Alg12,
 	Alg13,
 	Alg14 int
-	Port    Port
-	Mux     sync.Mutex
-	Cond    sync.Cond
-	Changed bool
+	Port Port
+	Mux  sync.Mutex
+	Cond sync.Cond
+	Changed,
+	Accessable bool
 }
 
 func (scr *SCR) StartFlushing() {
-	go func() {
-		for {
-			SCR := scr.Port.GetSCR()
-			scr.Mux.Lock()
-			scr.SCR = SCR
-			scr.Mux.Unlock()
-			scr.Cond.L.Lock()
-			scr.Changed = true
-			scr.Cond.Signal()
-			scr.Cond.L.Unlock()
-		}
-	}()
+	if scr.Accessable {
+		go func() {
+			for {
+				SCR := scr.Port.GetSCR()
+				scr.Mux.Lock()
+				scr.SCR = SCR
+				scr.Mux.Unlock()
+				scr.Cond.L.Lock()
+				scr.Changed = true
+				scr.Cond.Signal()
+				scr.Cond.L.Unlock()
+			}
+		}()
+	}
 }
 
 func (asahikasei *Asahikasei) StartFlushing() {
-	go func() {
-		for {
-			ead1_h, ead1_l, ead2_h, ead2_l, alg11, alg12, alg13, alg14, fSuccess := asahikasei.Port.GetAsahikasei()
-			if fSuccess != 0 {
-				continue
-			} else {
-				asahikasei.Mux.Lock()
-				asahikasei.Ead1_h = ead1_h
-				asahikasei.Ead1_l = ead1_l
-				asahikasei.Ead2_h = ead2_h
-				asahikasei.Ead2_l = ead2_l
-				asahikasei.Alg11 = alg11
-				asahikasei.Alg12 = alg12
-				asahikasei.Alg13 = alg13
-				asahikasei.Alg14 = alg14
-				asahikasei.Mux.Unlock()
-				asahikasei.Cond.L.Lock()
-				asahikasei.Changed = true
-				asahikasei.Cond.Signal()
-				asahikasei.Cond.L.Unlock()
+	if asahikasei.Accessable {
+		go func() {
+			for {
+				ead1_h, ead1_l, ead2_h, ead2_l, alg11, alg12, alg13, alg14, fSuccess := asahikasei.Port.GetAsahikasei()
+				if fSuccess != 0 {
+					continue
+				} else {
+					asahikasei.Mux.Lock()
+					asahikasei.Ead1_h = ead1_h
+					asahikasei.Ead1_l = ead1_l
+					asahikasei.Ead2_h = ead2_h
+					asahikasei.Ead2_l = ead2_l
+					asahikasei.Alg11 = alg11
+					asahikasei.Alg12 = alg12
+					asahikasei.Alg13 = alg13
+					asahikasei.Alg14 = alg14
+					asahikasei.Mux.Unlock()
+					asahikasei.Cond.L.Lock()
+					asahikasei.Changed = true
+					asahikasei.Cond.Signal()
+					asahikasei.Cond.L.Unlock()
+				}
 			}
-		}
-	}()
+		}()
+	}
 }
 
 func CalculateFromEADs(ead1_h, ead1_l, ead2_h, ead2_l byte) float64 {

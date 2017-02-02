@@ -1,4 +1,4 @@
-package serialportmethods
+package serial
 
 import "fmt"
 import "time"

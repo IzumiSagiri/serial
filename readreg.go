@@ -1,4 +1,4 @@
-package serialportmethods
+package serial
 
 /*
 #cgo LDFLAGS: -ladvapi32
@@ -6,14 +6,13 @@ package serialportmethods
 #include <windows.h>
 #pragma comment(lib, "advapi32.lib")
 
-UCHAR strSerialList[256][25];
-UCHAR *test = "test";
+char strSerialList[256][2][50];
 
 void readCommPorts()
 {
     int i = 0;
-    CHAR Name[25];
-    UCHAR szPortName[25];
+    char Name[50];
+    char szPortName[50];
     LONG Status;
     DWORD dwIndex = 0;
     DWORD dwName;
@@ -29,14 +28,15 @@ void readCommPorts()
         do
         {
             Status = RegEnumValue(hKey, dwIndex++, Name, &dwName, NULL, &Type, szPortName, &dwSizeofPortName);
-            if((Status == ERROR_SUCCESS) || (Status == ERROR_MORE_DATA))
+            if(Status == ERROR_SUCCESS)
             {
-                strcpy(strSerialList[i], szPortName);
+                strcpy(strSerialList[i][0], Name);
+                strcpy(strSerialList[i][1], szPortName);
                 i++;
             }
             dwName = sizeof(Name);
             dwSizeofPortName = sizeof(szPortName);
-        } while((Status == ERROR_SUCCESS) || (Status == ERROR_MORE_DATA));
+        } while(Status == ERROR_SUCCESS);
         RegCloseKey(hKey);
     }
 }
@@ -44,19 +44,17 @@ void readCommPorts()
 import "C"
 import "fmt"
 
-func GetAvailableComms() []string {
-	var commsAvailable []string
+func GetAvailableComms(m map[string]string) {
 	C.readCommPorts()
 	for i := range C.strSerialList {
-		if C.strSerialList[i][0] != 0 {
-			commsAvailable = append(commsAvailable, convertToString(C.strSerialList[i]))
+		if C.strSerialList[i][1][0] != 0 {
+			m[ConvertToString(C.strSerialList[i][0])] = ConvertToString(C.strSerialList[i][1])
 		}
 	}
-	fmt.Println(commsAvailable)
-	return commsAvailable
+	fmt.Println(m)
 }
 
-func convertToString(wtf [25]C.UCHAR) string {
+func ConvertToString(wtf [50]C.char) string {
 	var charray []byte
 	for i := range wtf {
 		if wtf[i] != 0 {

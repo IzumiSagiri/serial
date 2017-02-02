@@ -1,4 +1,4 @@
-package serialportmethods
+package serial
 
 import "time"
 import "log"
@@ -74,6 +74,7 @@ func (status *Status) Start() {
 		myStruct{"post_90stimu3_4sec", "4s"},
 		myStruct{"post_90stimu3_rest", "50s"},
 		myStruct{"announce_final", "10s"},
+		myStruct{"for_further_use", "60s"},
 	}
 	status.TimeStarted = time.Now()
 	var err error
