@@ -17,6 +17,7 @@ HWND hwndSettings_listbox;
 HWND hwndSettings_listbox2;
 HWND hwndSettings_listbox3;
 HWND hwndSettings_listbox4;
+HWND hwndSettings_static;
 HINSTANCE hinst;
 HINSTANCE hinstSettings;
 
@@ -42,6 +43,7 @@ char scrr[50];
 #define LIST_ID2 3
 #define LIST_ID3 4
 #define LIST_ID4 5
+#define STATIC_ID 6
 
 int renewDrawing(HWND hwnd)
 {
@@ -133,6 +135,9 @@ LRESULT CALLBACK WinProcSettings(HWND hwnd,UINT msg,WPARAM wp,LPARAM lp)
             memset(buf, 0, sizeof(buf));
             index=SendMessage(hwndSettings_listbox, LB_GETCURSEL, 0, 0);
             SendMessage(hwndSettings_listbox, LB_GETTEXT, index, (WPARAM)buf);
+            char *tempPtr = strstr(buf, "Bth");
+            if (tempPtr == null) {
+                SendMessage(hwndSettings_listbox, LB_GETTEXT, index, (WPARAM)buf);
             strcpy(asahikaseil, buf);
             break;
         case LIST_ID2:
@@ -200,10 +205,15 @@ int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmdLine,i
 }
 
 void AddListbox(char *port) {
-	SendMessage(hwndSettings_listbox, LB_ADDSTRING, 0, (WPARAM)port);
-	SendMessage(hwndSettings_listbox2, LB_ADDSTRING, 0, (WPARAM)port);
-	SendMessage(hwndSettings_listbox3, LB_ADDSTRING, 0, (WPARAM)port);
-	SendMessage(hwndSettings_listbox4, LB_ADDSTRING, 0, (WPARAM)port);
+    if (strstr(port, "Bth")) {
+        SendMessage(hwndSettings_listbox, LB_ADDSTRING, 0, (WPARAM)port);
+        SendMessage(hwndSettings_listbox2, LB_ADDSTRING, 0, (WPARAM)port);
+    } else if (strstr(port, "V")) {
+        SendMessage(hwndSettings_listbox3, LB_ADDSTRING, 0, (WPARAM)port);
+        SendMessage(hwndSettings_listbox4, LB_ADDSTRING, 0, (WPARAM)port);
+    } else {
+        printf("Error!!!");
+    }
 }
 
 int WINAPI WinMainSettings(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmdLine,int nShowCmd)
@@ -216,7 +226,7 @@ int WINAPI WinMainSettings(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpC
     wcSettings.cbClsExtra=wcSettings.cbWndExtra=0;
     wcSettings.hInstance=hInstance;
     wcSettings.hCursor=wcSettings.hIcon=NULL;
-    wcSettings.hbrBackground=(HBRUSH)GetStockObject(BLACK_BRUSH);
+    wcSettings.hbrBackground=(HBRUSH)COLOR_WINDOW;
     wcSettings.lpszClassName="testSettings";
     wcSettings.lpszMenuName=NULL;
 
@@ -225,12 +235,13 @@ int WINAPI WinMainSettings(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpC
         return -1;
     }
 
-    hwndSettings=CreateWindowA("testSettings","SettingsWindow",WS_VISIBLE | WS_SYSMENU | WS_CAPTION | WS_MINIMIZEBOX,0,0,WIDTH,HEIGHT,NULL,NULL,hinstSettings,NULL);
-    hwndSettings_button=CreateWindowA("button","Confirm",WS_VISIBLE | WS_CHILD | BS_PUSHBUTTON,50,50,100,100,hwndSettings,(HMENU)BUTTON_ID,hInstance,NULL);
-    hwndSettings_listbox=CreateWindowA("listbox", NULL,WS_VISIBLE | WS_CHILD | LBS_SORT | LBS_NOTIFY | WS_VSCROLL, 20,20,220,220,hwndSettings,(HMENU)LIST_ID,hInstance,NULL);
-    hwndSettings_listbox2=CreateWindowA("listbox", NULL,WS_VISIBLE | WS_CHILD | LBS_SORT | LBS_NOTIFY | WS_VSCROLL, 300,20,500,220,hwndSettings,(HMENU)LIST_ID2,hInstance,NULL);
-    hwndSettings_listbox3=CreateWindowA("listbox", NULL,WS_VISIBLE | WS_CHILD | LBS_SORT | LBS_NOTIFY | WS_VSCROLL, 20,300,220,500,hwndSettings,(HMENU)LIST_ID3,hInstance,NULL);
-    hwndSettings_listbox4=CreateWindowA("listbox", NULL,WS_VISIBLE | WS_CHILD | LBS_SORT | LBS_NOTIFY | WS_VSCROLL, 300,300,500,500,hwndSettings,(HMENU)LIST_ID4,hInstance,NULL);
+    hwndSettings=CreateWindowA("testSettings","SettingsWindow",WS_VISIBLE | WS_SYSMENU | WS_CAPTION | WS_MINIMIZEBOX,0,0,300,350,NULL,NULL,hinstSettings,NULL);
+    hwndSettings_button=CreateWindowA("button","Confirm",WS_VISIBLE | WS_CHILD | BS_PUSHBUTTON,100,300,100,20,hwndSettings,(HMENU)BUTTON_ID,hInstance,NULL);
+    hwndSettings_listbox=CreateWindowA("listbox", NULL,WS_VISIBLE | WS_CHILD | LBS_SORT | LBS_NOTIFY | WS_VSCROLL, 0,0,150,150,hwndSettings,(HMENU)LIST_ID,hInstance,NULL);
+    hwndSettings_listbox2=CreateWindowA("listbox", NULL,WS_VISIBLE | WS_CHILD | LBS_SORT | LBS_NOTIFY | WS_VSCROLL, 150,0,150,150,hwndSettings,(HMENU)LIST_ID2,hInstance,NULL);
+    hwndSettings_listbox3=CreateWindowA("listbox", NULL,WS_VISIBLE | WS_CHILD | LBS_SORT | LBS_NOTIFY | WS_VSCROLL, 0,150,150,150,hwndSettings,(HMENU)LIST_ID3,hInstance,NULL);
+    hwndSettings_listbox4=CreateWindowA("listbox", NULL,WS_VISIBLE | WS_CHILD | LBS_SORT | LBS_NOTIFY | WS_VSCROLL, 150,150,150,150,hwndSettings,(HMENU)LIST_ID4,hInstance,NULL);
+    hwndSettings_static=CreateWindowA("static", "test", WS_VISIBLE | WS_CHILD, 0,300,100,50,hwndSettings,(HMENU)STATIC_ID,hInstance,NULL);
 
     if(hwndSettings==NULL){
         MSG("Window Failed.");
